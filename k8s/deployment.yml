@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ng-gke-deploy
+  labels:
+    app: ng-gke
+    stack: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ng-gke
+  template:
+    metadata:
+      labels:
+        app: ng-gke
+    spec:
+      containers:
+        - name: helloworld
+          image: "eu.gcr.io/hello-world-246502/angular-practice:1"
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
